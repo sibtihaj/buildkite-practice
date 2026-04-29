@@ -16,7 +16,7 @@ steps:
     prompt: "Please enter your name to continue"
     fields:
       - text: "What's your name?"
-        key: "user-name"
+        key: "username"
         required: true
 
   - label: "👋 Run Hello Program"
