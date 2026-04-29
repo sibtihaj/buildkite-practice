@@ -1,10 +1,9 @@
 steps:
-  - label: "Pipeline upload"
-    command: buildkite-agent pipeline upload
-
   - label: "🔨 Build Go Binary"
-    command: go build -o hello/hello ./hello
-
+    command: |
+      go build -o hello/hello ./hello
+    agents:
+      queue: ec2-instance
     plugins:
       - docker#v5.11.0:
           image: "golang:1.18.0"
@@ -26,3 +25,5 @@ steps:
       chmod +x hello/hello
       USER_NAME=$(buildkite-agent meta-data get user-name)
       ./hello/hello "$USER_NAME"
+    agents:
+      queue: ec2-instance
