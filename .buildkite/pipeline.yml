@@ -1,7 +1,10 @@
 steps:
+  - label: "Pipeline upload"
+    command: buildkite-agent pipeline upload
+
   - label: "🔨 Build Go Binary"
-    command: |
-      go build -o hello/hello ./hello
+    command: go build -o hello/hello ./hello
+
     plugins:
       - docker#v5.11.0:
           image: "golang:1.18.0"
