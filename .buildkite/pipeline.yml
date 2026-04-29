@@ -1,0 +1,25 @@
+steps:
+  - label: "🔨 Build Go Binary"
+    command: |
+      go build -o hello/hello ./hello
+    plugins:
+      - docker#v5.11.0:
+          image: "golang:1.18.0"
+          workdir: /app
+          volumes:
+            - ".:/app"
+    artifact_paths: "hello/hello"
+
+  - block: "👤 Enter Your Name"
+    prompt: "Please enter your name to continue"
+    fields:
+      - text: "What's your name?"
+        key: "user-name"
+        required: true
+
+  - label: "👋 Run Hello Program"
+    command: |
+      buildkite-agent artifact download hello/hello .
+      chmod +x hello/hello
+      USER_NAME=$(buildkite-agent meta-data get user-name)
+      ./hello/hello "$USER_NAME"
