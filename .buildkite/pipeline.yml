@@ -19,11 +19,14 @@ steps:
         key: "username"
         required: true
 
+  - wait
+
   - label: "👋 Run Hello Program"
     command: |
       buildkite-agent artifact download hello/hello .
       chmod +x hello/hello
       USER_NAME=$(buildkite-agent meta-data get username)
+      echo "Name is: $USER_NAME"
       ./hello/hello "$USER_NAME"
     agents:
       queue: ec2-instance
