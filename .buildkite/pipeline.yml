@@ -23,7 +23,7 @@ steps:
     command: |
       buildkite-agent artifact download hello/hello .
       chmod +x hello/hello
-      USER_NAME=$(buildkite-agent meta-data get user-name)
+      USER_NAME=$(buildkite-agent meta-data get username)
       ./hello/hello "$USER_NAME"
     agents:
       queue: ec2-instance
